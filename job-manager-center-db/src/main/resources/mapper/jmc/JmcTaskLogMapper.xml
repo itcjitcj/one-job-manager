@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.spdbccc.job.manager.db.dao.JmcTaskLogMapper" >
+  <resultMap id="BaseResultMap" type="com.spdbccc.job.manager.db.entity.JmcTaskLog" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="task_status" property="taskStatus" jdbcType="CHAR" />
+    <result column="taskid" property="taskid" jdbcType="BIGINT" />
+    <result column="application_id" property="applicationId" jdbcType="VARCHAR" />
+    <result column="command" property="command" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="is_deleted" property="isDeleted" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, task_status, taskid, application_id, command, create_user, create_time, update_user, 
+    update_time, is_deleted
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from jmc_task_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+</mapper>

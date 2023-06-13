@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.spdbccc.job.manager.db.dao.JmcTaskSparkParamsMapper" >
+  <resultMap id="BaseResultMap" type="com.spdbccc.job.manager.db.entity.JmcTaskSparkParams" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="spark_submit" property="sparkSubmit" jdbcType="VARCHAR" />
+    <result column="properties_file" property="propertiesFile" jdbcType="VARCHAR" />
+    <result column="master" property="master" jdbcType="TINYINT" />
+    <result column="deploy_mode" property="deployMode" jdbcType="VARCHAR" />
+    <result column="queue" property="queue" jdbcType="VARCHAR" />
+    <result column="principal" property="principal" jdbcType="VARCHAR" />
+    <result column="keytab" property="keytab" jdbcType="VARCHAR" />
+    <result column="files" property="files" jdbcType="VARCHAR" />
+    <result column="driver_memory" property="driverMemory" jdbcType="VARCHAR" />
+    <result column="driver_cores" property="driverCores" jdbcType="VARCHAR" />
+    <result column="num_executors" property="numExecutors" jdbcType="VARCHAR" />
+    <result column="executor_memory" property="executorMemory" jdbcType="VARCHAR" />
+    <result column="executor_cores" property="executorCores" jdbcType="VARCHAR" />
+    <result column="conf" property="conf" jdbcType="VARCHAR" />
+    <result column="class_url" property="classUrl" jdbcType="VARCHAR" />
+    <result column="app_name" property="appName" jdbcType="VARCHAR" />
+    <result column="jar_name" property="jarName" jdbcType="VARCHAR" />
+    <result column="get_yarn_log" property="getYarnLog" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="is_deleted" property="isDeleted" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, spark_submit, properties_file, master, deploy_mode, queue, principal, keytab, 
+    files, driver_memory, driver_cores, num_executors, executor_memory, executor_cores, 
+    conf, class_url, app_name, jar_name, get_yarn_log, create_user, create_time, update_user, 
+    update_time, is_deleted
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from jmc_task_spark_params
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+</mapper>

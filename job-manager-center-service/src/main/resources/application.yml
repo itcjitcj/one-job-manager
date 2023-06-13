@@ -1,0 +1,83 @@
+server:
+  port: 17070
+  servlet:
+    context-path: /
+    session:
+      timeout: Pt4h
+      cookie:
+        name: JSESSIONID_BW
+
+spring:
+  application:
+    name: one-job-manager
+#  profiles:
+#    active: pro
+  data:
+    rest:
+      returnBodyOnCreate: true
+      returnBodyOnUpdate: true
+  jackson:
+    timeZone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+    deserialization:
+      fail-on-unknown-properties: false
+    serialization:
+      fail-on-empty-beans: false
+      write-null-map-values: true
+      write-empty-json-arrays: true
+#  thymeleaf:
+#    mode: LEGACYHTML5
+  servlet:
+    multipart:
+      enabled: true
+      maxFileSize: 200MB
+      maxRequestSize: 200MB
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.200.133:3306/one_job_manager?characterEncoding=utf-8&autoReconnect=true&createDatabaseIfNotExist=true&failOverReadOnly=false&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: caoJIE@2023
+    tomcat:
+      test-on-borrow: true
+      test-while-idle: true
+      time-between-eviction-runs-millis: 3600000
+      validation-query: select 1
+    dynamic:
+      #dao没有指定访问哪个数据源，指定默认的数据源
+      primary: mysql
+      #是否是严格模式，严格模式指dao没有指定数据源，就报错。 非严格模式允许dao不配置数据源，会启动默认数据源进行连接
+      strict: false
+      datasource:
+        #定义了三个数据源，mybatis(mysql)，ck(clickhouse),hbase(hbase)
+        mysql:
+          url: jdbc:mysql://192.168.200.133:3306/one_job_manager?characterEncoding=utf-8&autoReconnect=true&createDatabaseIfNotExist=true&failOverReadOnly=false&useSSL=false&allowPublicKeyRetrieval=true
+          username: root
+          password: caoJIE@2023
+          driver-class-name: com.mysql.cj.jdbc.Driver
+#  mail:
+#    host: smtp.mxhichina.com
+#    port: 25
+#    username: username@bigwhale.com
+#    password: password
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: false
+#            required: false
+mybatis-plus:
+  mapper-locations:
+    classpath: mapper/*/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+logging:
+  level:
+    com.ctrip.framework.apollo.internals.RemoteConfigLongPollService: INFO
+    com.ctrip.framework.apollo.internals.RemoteConfigRepository: INFO
+
+apollo:
+  bootstrap:
+    enabled: false

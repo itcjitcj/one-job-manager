@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spdbccc.job.manager.db.dao.JmcJobInfoMapper">
+  <resultMap id="BaseResultMap" type="com.spdbccc.job.manager.db.entity.JmcJobInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="relate_system" jdbcType="VARCHAR" property="relateSystem" />
+    <result column="user" jdbcType="VARCHAR" property="user" />
+    <result column="job_goal" jdbcType="VARCHAR" property="jobGoal" />
+    <result column="hive_table" jdbcType="VARCHAR" property="hiveTable" />
+    <result column="cluster" jdbcType="CHAR" property="cluster" />
+    <result column="hdfs_path" jdbcType="VARCHAR" property="hdfsPath" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="is_deleted" jdbcType="CHAR" property="isDeleted" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, relate_system, user, job_goal, hive_table, cluster, hdfs_path, create_user, create_time, 
+    update_user, update_time, is_deleted
+  </sql>
+  <select id="selectByExample" parameterType="com.spdbccc.job.manager.db.entity.JmcJobInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from jmc_job_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jmc_job_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <insert id="insert" parameterType="com.spdbccc.job.manager.db.entity.JmcJobInfo">
+    insert into jmc_job_info (id, relate_system, user, 
+      job_goal, hive_table, cluster, 
+      hdfs_path, create_user, create_time, 
+      update_user, update_time, is_deleted
+      )
+    values (#{id,jdbcType=BIGINT}, #{relateSystem,jdbcType=VARCHAR}, #{user,jdbcType=VARCHAR}, 
+      #{jobGoal,jdbcType=VARCHAR}, #{hiveTable,jdbcType=VARCHAR}, #{cluster,jdbcType=CHAR}, 
+      #{hdfsPath,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.spdbccc.job.manager.db.entity.JmcJobInfo">
+    insert into jmc_job_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="relateSystem != null">
+        relate_system,
+      </if>
+      <if test="user != null">
+        user,
+      </if>
+      <if test="jobGoal != null">
+        job_goal,
+      </if>
+      <if test="hiveTable != null">
+        hive_table,
+      </if>
+      <if test="cluster != null">
+        cluster,
+      </if>
+      <if test="hdfsPath != null">
+        hdfs_path,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="relateSystem != null">
+        #{relateSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="user != null">
+        #{user,jdbcType=VARCHAR},
+      </if>
+      <if test="jobGoal != null">
+        #{jobGoal,jdbcType=VARCHAR},
+      </if>
+      <if test="hiveTable != null">
+        #{hiveTable,jdbcType=VARCHAR},
+      </if>
+      <if test="cluster != null">
+        #{cluster,jdbcType=CHAR},
+      </if>
+      <if test="hdfsPath != null">
+        #{hdfsPath,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map">
+    update jmc_job_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.relateSystem != null">
+        relate_system = #{record.relateSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.user != null">
+        user = #{record.user,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobGoal != null">
+        job_goal = #{record.jobGoal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hiveTable != null">
+        hive_table = #{record.hiveTable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cluster != null">
+        cluster = #{record.cluster,jdbcType=CHAR},
+      </if>
+      <if test="record.hdfsPath != null">
+        hdfs_path = #{record.hdfsPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isDeleted != null">
+        is_deleted = #{record.isDeleted,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update jmc_job_info
+    set id = #{record.id,jdbcType=BIGINT},
+      relate_system = #{record.relateSystem,jdbcType=VARCHAR},
+      user = #{record.user,jdbcType=VARCHAR},
+      job_goal = #{record.jobGoal,jdbcType=VARCHAR},
+      hive_table = #{record.hiveTable,jdbcType=VARCHAR},
+      cluster = #{record.cluster,jdbcType=CHAR},
+      hdfs_path = #{record.hdfsPath,jdbcType=VARCHAR},
+      create_user = #{record.createUser,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      is_deleted = #{record.isDeleted,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.spdbccc.job.manager.db.entity.JmcJobInfo">
+    update jmc_job_info
+    <set>
+      <if test="relateSystem != null">
+        relate_system = #{relateSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="user != null">
+        user = #{user,jdbcType=VARCHAR},
+      </if>
+      <if test="jobGoal != null">
+        job_goal = #{jobGoal,jdbcType=VARCHAR},
+      </if>
+      <if test="hiveTable != null">
+        hive_table = #{hiveTable,jdbcType=VARCHAR},
+      </if>
+      <if test="cluster != null">
+        cluster = #{cluster,jdbcType=CHAR},
+      </if>
+      <if test="hdfsPath != null">
+        hdfs_path = #{hdfsPath,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.spdbccc.job.manager.db.entity.JmcJobInfo">
+    update jmc_job_info
+    set relate_system = #{relateSystem,jdbcType=VARCHAR},
+      user = #{user,jdbcType=VARCHAR},
+      job_goal = #{jobGoal,jdbcType=VARCHAR},
+      hive_table = #{hiveTable,jdbcType=VARCHAR},
+      cluster = #{cluster,jdbcType=CHAR},
+      hdfs_path = #{hdfsPath,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_deleted = #{isDeleted,jdbcType=CHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
